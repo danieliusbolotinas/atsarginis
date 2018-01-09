@@ -12,13 +12,13 @@ class CharacterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $characters = Character::all();
-        return view ('showAll',[
-          'characters' => $characters
-        ]);
-    }
+  public function index()
+  {
+      $characters = Character::all();
+      return view ('showAll',[
+        'characters' => $characters
+      ]);
+  }
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +27,8 @@ class CharacterController extends Controller
      */
     public function create()
     {
-        //
+      return view ('createCharacters');
+
     }
 
     /**
@@ -38,7 +39,15 @@ class CharacterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+          'name'=>'required|unique:characters|max:255',
+          'race'=>'required',
+          'power_level'=>'required|unique:characters|max:10000',
+          'description' => 'required'
+        ]);
+
+        $post = $request->except('_token');
+        Character::create($post);
     }
 
     /**

@@ -37,10 +37,10 @@
         <div class="col-sm-12">
             <ul class="list-group">
 
-                @foreach (@characters as character)
+                @foreach ($characters as $character)
               <li>  {{$character->name}} </li>
                 @endforeach
-          
+
             </ul>
         </div><!-- /.col-sm-4 -->
     </div>
