@@ -42,7 +42,7 @@ class CharacterController extends Controller
         $request->validate([
           'name'=>'required|unique:characters|max:255',
           'race'=>'required',
-          'power_level'=>'required|unique:characters|max:10000',
+          'power_level'=>'required|numeric|max:10000',
           'description' => 'required'
         ]);
 
