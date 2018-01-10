@@ -38,7 +38,7 @@
             <ul class="list-group">
 
                 @foreach ($characters as $character)
-              <li>  {{$character->name}} </li>
+              <li style="list-style-type: none"> <a href="{{route('destroy', $character->id)}}" class="btn btn-danger btn-xs">x</a> {{$character->name}} </li>
                 @endforeach
 
             </ul>

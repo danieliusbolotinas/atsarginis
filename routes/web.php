@@ -14,3 +14,4 @@
 Route::get('/', 'CharacterController@index')->name('index'); //nereikia blade rasyti pilno linko//
 Route::get('/create', 'CharacterController@create')->name('create');
 Route::post('/store', 'CharacterController@store')->name('store');
+Route::get('/destroy/{id}', 'CharacterController@destroy')->name('destroy');
