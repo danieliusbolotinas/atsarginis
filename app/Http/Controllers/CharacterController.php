@@ -7,107 +7,109 @@ use App\Character;
 
 class CharacterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
   public function index()
   {
-      $characters = Character::all();
-      return view ('showAll',[
-        'characters' => $characters
-      ]);
+    $characters = Character::all();
+    return view ('showAll',[
+      'characters' => $characters
+    ]);
   }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      return view ('createCharacters');
+  /**
+  * Show the form for creating a new resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function create()
+  {
+    return view ('createCharacters');
 
+  }
+
+  /**
+  * Store a newly created resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function store(Request $request)
+  {
+    $this->validateRequest($request);
+    $post = $request->except('_token');
+    Character::create($post);
+
+    return redirect()->route('index');
+  }
+
+  /**
+  * Display the specified resource.
+  *
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function show($id)
+  {
+    //
+  }
+
+  /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function edit($id)
+  {
+    $character=Character::findOrFail($id);
+    return view ('edit',[
+      'character' => $character
+    ]);
+  }
+
+  /**
+  * Update the specified resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function update(Request $request, $id)
+  {
+    $this->validateRequest($request, $id);
+    $character=Character::findOrFail($id);
+    $post=$request->except('_token');
+    $character->update($post);
+    return redirect()->to('/');
+  }
+
+  /**
+  * Remove the specified resource from storage.
+  *
+  * @param  int  $id
+  * @return \Illuminate\Http\Response
+  */
+  public function destroy($id)
+  {
+    $id=Character::findOrFail($id);
+    $id->delete();
+    return redirect()->back();
+  }
+  protected function validateRequest($request, $id=NULL)
+  {
+    $rules=[
+      'name'=> 'required|max:255|unique:characters',
+      'race'=>'required',
+      'power_level'=>'required|numeric|max:10000',
+      'description' => 'required'
+    ];
+    if($id!=NULL){
+      $rules['name'].= ',name,'.$id.',id';
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-          'name'=>'required|unique:characters|max:255',
-          'race'=>'required',
-          'power_level'=>'required|numeric|max:10000',
-          'description' => 'required'
-        ]);
-
-        $post = $request->except('_token');
-        Character::create($post);
-
-        return redirect()->route('index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-      $character=Character::findOrFail($id);
-      return view ('edit',[
-        'character' => $character
-      ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-      $request->validate([
-        'name'=>'required|unique:characters,name,'.$id.',id|max:255',
-        'race'=>'required',
-        'power_level'=>'required|numeric|max:10000',
-        'description' => 'required'
-      ]);
-        $character=Character::findOrFail($id);
-        $post=$request->except('_token');
-        $character->update($post);
-        return redirect()->to('/');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $id=Character::findOrFail($id);
-        $id->delete();
-        return redirect()->back();
-    }
+    $request->validate($rules);
+  }
 }
