@@ -71,7 +71,10 @@ class CharacterController extends Controller
      */
     public function edit($id)
     {
-      return view ('edit');
+      $character=Character::findOrFail($id);
+      return view ('edit',[
+        'character' => $character
+      ]);
     }
 
     /**
@@ -83,7 +86,16 @@ class CharacterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $request->validate([
+        'name'=>'required|unique:characters,name,'.$id.',id|max:255',
+        'race'=>'required',
+        'power_level'=>'required|numeric|max:10000',
+        'description' => 'required'
+      ]);
+        $character=Character::findOrFail($id);
+        $post=$request->except('_token');
+        $character->update($post);
+        return redirect()->to('/');
     }
 
     /**
