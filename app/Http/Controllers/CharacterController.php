@@ -48,6 +48,8 @@ class CharacterController extends Controller
 
         $post = $request->except('_token');
         Character::create($post);
+
+        return redirect()->route('index');
     }
 
     /**

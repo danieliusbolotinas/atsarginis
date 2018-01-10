@@ -11,7 +11,7 @@
 <body>
 <div class="container">
   <h2>Enter Character form</h2>
-  <form class="form-horizontal" action="/store" method="POST">
+  <form class="form-horizontal" action="{{route('store')}}" method="POST">
     {!!csrf_field()!!}
     <div class="form-group @if($errors->has('name')) has-error @endif">
       <label class="control-label col-sm-2" for="name">Name:</label>
@@ -55,6 +55,7 @@
       </div>
     </div>
   </form>
+  <a href="{{route('index')}}" class="btn btn-primary">Back to main page</a>
 </div>
 </body>
 </html>

@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', 'CharacterController@index');
-Route::get('/create', 'CharacterController@create');
-Route::post('/store', 'CharacterController@store');
+Route::get('/', 'CharacterController@index')->name('index'); //nereikia blade rasyti pilno linko//
+Route::get('/create', 'CharacterController@create')->name('create');
+Route::post('/store', 'CharacterController@store')->name('store');
