@@ -13,11 +13,14 @@
 
                 @foreach ($characters as $character)
               <li style="list-style-type: none">
+                <a href="{{route('create-photo', $character->id)}}" class="btn btn-success btn-xs">i</a>
                 <a href="{{route('edit', $character->id)}}" class="btn btn-success btn-xs">e</a>
                 <a href="{{route('destroy', $character->id)}}" class="btn btn-danger btn-xs">x</a>
                 {{$character->name}}
                 @foreach ($character->photos as $photo)
-                  <img src="{{str_replace('public','storage',$photo->file_name)}}">
+                  {{--šio būdo negalima naudoti - dirty--}}
+                  {{--<img srtc="{{str_replace('public','storage',$this->file_name)}}">--}}
+                  <img src="{{$photo->url}}">
                 @endforeach
                 {{-- {{dump($character->photos)}} --}}
               </li>

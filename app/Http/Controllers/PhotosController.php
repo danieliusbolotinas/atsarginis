@@ -46,6 +46,7 @@ class PhotosController extends Controller
           'character_id' => $character_id
         ];
         Photo::create($post);
+        return redirect()->route('index');
     }
 
     /**
