@@ -15,6 +15,6 @@ class Photo extends Model
       $photoUrl = explode ("/", $this->file_name);
       $photoUrl[0]='storage';
       $photoUrl = implode ('/', $photoUrl);
-      return $photoUrl;
+      return asset($photoUrl);
     }
 }

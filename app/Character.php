@@ -11,4 +11,11 @@ class Character extends Model
     public function photos(){
       return $this->hasMany('App\Photo');
     }
+
+  public function getFeaturedPhotoAttribute(){
+    if(count($this->photos)>0){
+      return $this->photos[0];
+    }
+    return NULL;
+  }
 }
