@@ -97,7 +97,7 @@ class CharacterController extends Controller
   {
     $character=Character::findOrFail($id);
     foreach ($character->photos as $photo) {
-      if (file_exists(storage_path('app/' .$photo->file_name)){
+      if (file_exists(storage_path('app/' .$photo->file_name))){
         unlink(storage_path('app/' .$photo->file_name));
         echo $photo." was deleted";
       }

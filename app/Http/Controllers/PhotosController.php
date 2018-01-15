@@ -40,6 +40,9 @@ class PhotosController extends Controller
      */
     public function store(Request $request, $character_id)
     {
+        $validatedData = $request->validate([
+          'upload'=>'required|mimes:jpeg,bmp,png|max:6000'
+        ]);
         $path = $request ->file('upload')->storePublicly('public/photos');
         $post = [
           'file_name' => $path,
