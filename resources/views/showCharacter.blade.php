@@ -21,9 +21,9 @@
          </div>
      </div>
      <div class="row">
-       @foreach($character->photos as photo)
+       @foreach($character->photos as $photo)
          <div class="col-xs-3">
-           <img class="img-responsive" src="{{$phoyo->url}}">
+           <img class="img-responsive" src="{{$photo->url}}">
            <a href="{{route('destroy-photo', $photo->id)}}" class="btn btn-danger">Delete</a>
          </div>
        @endforeach
