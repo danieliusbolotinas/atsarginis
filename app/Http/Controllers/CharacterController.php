@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Character;
-use App\Helpers\PhotoHelper;
+use App\Helpers\CharacterHelper;
 
 class CharacterController extends Controller
 {
-  public function __construct(PhotoHelper $photoHelper){
-    $this->photoHelper = $photoHelper;
+  private $characterHelper;
+  public function __construct(CharacterHelper $characterHelper){
+    $this->characterHelper = $characterHelper;
   }
   /**
   * Display a listing of the resource.
@@ -103,11 +104,7 @@ class CharacterController extends Controller
   public function destroy($id)
   {
     $character=Character::findOrFail($id);
-    foreach ($character->photos as $photo) {
-      $this->photoHelper->deleteOne($photo);
-    }
-
-    $character->delete();
+    $this->characterHelper->deleteOne($character);
     return redirect()->route('index');
   }
   protected function validateRequest($request, $id=NULL)
