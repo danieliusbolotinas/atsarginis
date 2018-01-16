@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Character;
+use App\Helpers\PhotoHelper;
 
 class CharacterController extends Controller
 {
+  public function __construct(PhotoHelper $photoHelper){
+    $this->photoHelper = $photoHelper;
+  }
   /**
   * Display a listing of the resource.
   *
@@ -100,14 +104,11 @@ class CharacterController extends Controller
   {
     $character=Character::findOrFail($id);
     foreach ($character->photos as $photo) {
-      if (file_exists(storage_path('app/' .$photo->file_name))){
-        unlink(storage_path('app/' .$photo->file_name));
-        echo $photo." was deleted";
-      }
-      $photo->delete();
+      $this->photoHelper->deleteOne($photo);
     }
+
     $character->delete();
-    return redirect()->back();
+    return redirect()->route('index');
   }
   protected function validateRequest($request, $id=NULL)
   {

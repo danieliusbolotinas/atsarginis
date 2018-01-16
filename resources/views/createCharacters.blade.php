@@ -9,7 +9,7 @@
       <div class="col-sm-10">
         <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value="{{old('name')}}">
         @if($errors->has('name'))
-        <i>{{$errors->first('name')}}</i><br></br>
+          <i>{{$errors->first('name')}}</i><br></br>
         @endif
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class="col-sm-10">
         <input type="text" class="form-control" id="race" placeholder="Enter Race" name="race" value="{{old('race')}}">
         @if($errors->has('race'))
-        <i>{{$errors->first('race')}}</i><br></br>
+          <i>{{$errors->first('race')}}</i><br></br>
         @endif
       </div>
     </div>
@@ -27,7 +27,7 @@
       <div class="col-sm-10">
         <input type="text" class="form-control" id="power_level" placeholder="Enter Power Level" name="power_level" value="{{old('power_level')}}">
         @if($errors->has('power_level'))
-        <i>{{$errors->first('power_level')}}</i><br></br>
+          <i>{{$errors->first('power_level')}}</i><br></br>
         @endif
       </div>
     </div>
@@ -36,7 +36,7 @@
       <div class="col-sm-10">
         <textarea type="text" class="form-control" id="description" placeholder="Enter description" name="description">{{old('description')}}</textarea>
         @if($errors->has('description'))
-        <i>{{$errors->first('description')}}</i><br></br>
+          <i>{{$errors->first('description')}}</i><br></br>
         @endif
       </div>
     </div>
