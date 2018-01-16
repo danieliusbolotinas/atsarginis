@@ -25,6 +25,6 @@
     <div class="col-sm-12">
     </div>
   </div>
-  <a href="{{route('create')}}" class="btn btn-danger">Back to create</a>
+  <a href="{{route('create')}}" class="btn btn-danger">Create character</a>
 </div> <!-- /container -->
 @endsection
