@@ -2,7 +2,13 @@
 
 namespace App\Helpers;
 
-class PhotoHelper{    //vardų sritis
+class PhotoHelper{ //vardų sritis
+  public function generateUrl($photo){
+    $photoUrl = explode ("/", $photo->file_name);
+    $photoUrl[0]='storage';
+    $photoUrl = implode ('/', $photoUrl);
+    return asset($photoUrl);
+  }
   public function deleteOne($photo){
     $this->deleteOneFromFileSystem($photo);
     $photo->delete();
